@@ -1,6 +1,3 @@
+require 'redis'
 require_relative 'json/version'
-
-module Redis
-  module JSON
-  end
-end
+require_relative 'json/commands_patch'
