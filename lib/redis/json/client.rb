@@ -14,14 +14,18 @@ class Redis
         redis_client.call [:"json.#{command}", *args]
       end
 
-      def arrappend key, value, *values, path: '$', generate_options: {}
+      def arrappend key, value, *values, path: NOT_PROVIDED, generate_options: {}
         value = generate value, **generate_options
         values.map! { |val| generate val, **generate_options }
 
-        call __callee__, key, path, value, *values
+        if path.eql? NOT_PROVIDED
+          call __callee__, key, value, *values
+        else
+          call __callee__, key, path, value, *values
+        end
       end
 
-      def arrindex key, value, start=NOT_PROVIDED, stop=NOT_PROVIDED, path: '$', generate_options: {}
+      def arrindex key, value, start=NOT_PROVIDED, stop=NOT_PROVIDED, path:, generate_options: {}
         value = generate value, **generate_options
 
         if start.eql? NOT_PROVIDED
@@ -33,7 +37,7 @@ class Redis
         end
       end
 
-      def arrinsert key, index, value, *values, path: '$', generate_options: {}
+      def arrinsert key, index, value, *values, path:, generate_options: {}
         value = generate value, **generate_options
         values.map! { |val| generate val, **generate_options }
 
@@ -49,7 +53,10 @@ class Redis
       end
 
       def arrpop key, index=NOT_PROVIDED, path: NOT_PROVIDED
-        path = '$' if path.eql?(NOT_PROVIDED) && !index.eql?(NOT_PROVIDED)
+        if !index.eql?(NOT_PROVIDED) && path.eql?(NOT_PROVIDED)
+          raise ArgumentError,
+                'You cannot specify an index unless you also specify a path'
+        end
 
         if path.eql? NOT_PROVIDED
           call __callee__, key
@@ -60,7 +67,7 @@ class Redis
         end
       end
 
-      def arrtrim key, start=0, stop=0, path: '$'
+      def arrtrim key, start, stop, path:
         call __callee__, key, path, start, stop
       end
 
@@ -149,7 +156,7 @@ class Redis
           end
       end
 
-      def nummultby key, value, path: '$', parse_options: {}
+      def nummultby key, value, path:, parse_options: {}
         call(__callee__, key, path, value)
           .then do |response|
             parse response, **parse_options if response
@@ -224,7 +231,7 @@ class Redis
         end
       end
 
-      def toggle key, path: '$'
+      def toggle key, path:
         call __callee__, key, path
       end
 
