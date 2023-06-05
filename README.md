@@ -1,6 +1,6 @@
 # RedisJSON
 
-
+A Ruby client for the [RedisJSON](https://redis.io/docs/stack/json/) module of the Redis Stack.
 
 ## Installation
 
@@ -23,6 +23,31 @@ gem install redis-json
 ```
 
 ## Usage
+
+This gem builds on the [redis-rb](https://github.com/redis/redis-rb) gem. It add a `Redis#json` method, through which you can call the JSON-specific Redis commands:
+
+```ruby
+redis = Redis.new
+
+hash = {
+  number: 1,
+  string: 'example',
+  empty_object: {}
+}
+redis.json.set 'key', hash # => OK
+```
+
+Input values will be converted to JSON strings using `JSON.generate`, and returned JSON strings will be parsed to Ruby objects using `JSON.parse`. You can use, respectively, `generate_options` and `parse_options` to specify options that will be passed on to the `JSON` methods:
+
+```ruby
+r.json.get 'key'
+# => {'number' => 10}
+
+r.json.get 'key', parse_options: {symbolize_names: true}
+# => {:number => 10}
+```
+
+The methods are defined to be as similar as possible to the respective RedisJSON commands. `key` and `value` parameters become positional arguments, while more "option-like" parameters become keyword arguments (for example, the `NX` and `XX` parameters of the `JSON.SET` command become the `nx:` and `xx:` keyword arguments of the `set` method). The exception to this rule is `path`: to allow for the different combinations of default and variadic arguments, `path` is a keyword argument for all methods except `get` and `mset`.
 
 ## Version numbers
 

@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.email = ['info@moku.io']
   spec.license = 'MIT'
 
-  spec.summary = 'xx'
-  spec.description = 'xx'
+  spec.summary = 'A Ruby client for the RedisJSON module of the Redis Stack.'
+  spec.description = 'A Ruby client for the RedisJSON module of the Redis Stack.'
   spec.homepage = 'https://github.com/moku-io/redis-json'
   spec.required_ruby_version = '>= 2.6.0'
 
@@ -26,4 +26,6 @@ Gem::Specification.new do |spec|
   spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
+
+  spec.add_dependency 'redis'
 end
