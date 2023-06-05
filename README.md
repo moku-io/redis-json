@@ -34,7 +34,7 @@ hash = {
   string: 'example',
   empty_object: {}
 }
-redis.json.set 'key', hash # => OK
+redis.json.set 'key', hash, path: '$' # => OK
 ```
 
 Input values will be converted to JSON strings using `JSON.generate`, and returned JSON strings will be parsed to Ruby objects using `JSON.parse`. You can use, respectively, `generate_options` and `parse_options` to specify options that will be passed on to the `JSON` methods:
