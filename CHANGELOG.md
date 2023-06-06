@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2 2023-06-06
+
+### Bug fixes
+
+- Added check to allow compatibility with versions of redis-rb earlier than 4.6.0
+
 ## 1.0.1 2023-06-06
 
 ### New features
