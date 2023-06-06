@@ -1,0 +1,57 @@
+class Redis
+  module JSON
+    class Client
+      def call: (Symbol command, *String args) -> untyped
+
+      def arrappend: (String key, Hash[untyped, untyped] value, *Hash[untyped, untyped] values, ?path: String, ?generate_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def arrindex: (String key, Hash[untyped, untyped] value, ?Integer start, ?Integer stop, path: String, ?generate_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def arrinsert: (String key, untyped index, Hash[untyped, untyped] value, *Hash[untyped, untyped] values, path: String, ?generate_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def arrlen: (String key, ?path: String) -> untyped
+
+      def arrpop: (String key, ?Integer index, ?path: String) -> untyped
+
+      def arrtrim: (String key, Integer start, Integer stop, path: String) -> untyped
+
+      def clear: (String key, ?path: String) -> untyped
+
+      def debug_memory: (String key, ?path: String) -> untyped
+
+      def del: (String key, ?path: String) -> untyped
+
+      def forget: (String key, ?path: String) -> untyped
+
+      def get: (String key, *String paths, ?indent: String, ?newline: String, ?space: String, ?parse_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def merge: (String key, Hash[untyped, untyped] value, path: String, ?generate_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def mget: (String key, *String keys, path: String, ?parse_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def mset: (String key, untyped path, Hash[untyped, untyped] value, *untyped rest, ?generate_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def numincrby: (String key, Hash[untyped, untyped] value, path: String, ?parse_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def nummultby: (String key, Hash[untyped, untyped] value, path: String, ?parse_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def numpowby: (String key, Hash[untyped, untyped] value, path: String, ?parse_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def objkeys: (String key, ?path: String) -> untyped
+
+      def objlen: (String key, ?path: String) -> untyped
+
+      def resp: (String key, ?path: String) -> untyped
+
+      def set: (String key, Hash[untyped, untyped] value, path: String, ?nx: bool, ?xx: bool, ?generate_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def strappend: (String key, Hash[untyped, untyped] value, ?path: String, ?generate_options: ::Hash[Symbol, untyped]) -> untyped
+
+      def strlen: (String key, ?path: String) -> untyped
+
+      def toggle: (String key, path: String) -> untyped
+
+      def type: (String key, ?path: String) -> untyped
+    end
+  end
+end

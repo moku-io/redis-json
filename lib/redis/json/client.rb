@@ -52,18 +52,27 @@ class Redis
         end
       end
 
-      def arrpop key, index=NOT_PROVIDED, path: NOT_PROVIDED
+      def arrpop key, index=NOT_PROVIDED, path: NOT_PROVIDED, parse_options: {}
         if !index.eql?(NOT_PROVIDED) && path.eql?(NOT_PROVIDED)
           raise ArgumentError,
                 'You cannot specify an index unless you also specify a path'
         end
 
         if path.eql? NOT_PROVIDED
-          call __callee__, key
+          call(__callee__, key)
+            .then do |response|
+              parse response, **parse_options if response
+            end
         elsif index.eql? NOT_PROVIDED
-          call __callee__, key, path
+          call(__callee__, key, path)
+            .map do |response|
+              parse response, **parse_options if response
+            end
         else
-          call __callee__, key, path, index
+          call(__callee__, key, path, index)
+            .map do |response|
+              parse response, **parse_options if response
+            end
         end
       end
 
